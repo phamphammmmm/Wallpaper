@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Wallpaper.Entities.Wallpaper>
+
+@{
+    ViewData["Title"] = "Index";
+    
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form class="khoi-tim-kiem" asp-action="Index">
+    <div class="row">
+        <div class="col-md-5">
+            <input type="text" class="form-control" name="keyword" placeholder="Fiter keyword" />
+        </div>
+        <div class="col-md-5">
+            <select class="form-control" name="gender">
+                <option value="-1" hidden>Filter Gender</option>
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success" type="submit">Filter</button>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Filename)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Thumbnail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Premium)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trending)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ratio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.View)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Create_at)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Update_at)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Filename)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.Thumbnail)">
+                </td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Sort)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Premium)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Trending)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.FileSize) KB
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Ratio)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.View)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Create_at)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Update_at)
+                </th>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

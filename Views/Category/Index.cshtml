@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Wallpaper.Entities.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    var keyword = ViewBag.keyword as string;
+    var sort = ViewBag.sort as int?;
+    var isAsc = ViewBag.isAsc as bool?;
+    var colName = ViewBag.colName as string;
+    var index = ViewBag.index as int?;
+    var totalPage = ViewBag.totalPages as int?;
+    var size = ViewBag.size as int?;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form class="khoi-tim-kiem" asp-action="Index">
+    <div class="row">
+        <div class="col-md-5">
+            <input type="text" class="form-control" name="keyword" value="@keyword" placeholder="Fiter keyword" />
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" name="sort" placeholder="filter Sort" />
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success" type="submit">Filter</button>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a href="@Url.Action("Index","Category", new { keyword = keyword, colName = "Name", isAsc = !isAsc })">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
+            </th>
+            <th>
+                Preview
+            </th>
+            <th>
+                <a href="@Url.Action("Index","Category", new { keyword = keyword, colName = "Sort", isAsc = !isAsc })">
+                    @Html.DisplayNameFor(model => model.Sort)
+                </a>
+            </th>
+            <th>
+                <a href="@Url.Action("Index","Category", new { keyword = keyword, colName = "Create_at", isAsc = !isAsc })">
+                    @Html.DisplayNameFor(model => model.Create_at)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Update_at)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <img src="@item.Preview" style="width:40px; height: 40px;">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sort)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Create_at)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Update_at)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="khoi-phan-trang">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            @for (var i = 0; i < totalPage; i++)
+            {
+                <li class="page-item">
+                    <a class="page-link @(i+1 == index ? "active" : "" )" href="@Url.Action("Index","Category", new { keyword = keyword,
+                                                                                    index = i +1,
+                                                                                    colName = colName,
+                                                                                    isAsc = isAsc,
+                    })">@(i + 1)</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
