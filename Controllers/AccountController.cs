@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Plugins;
+using System;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Wallpaper.Context;
 using Wallpaper.DTO.User;
 
@@ -17,25 +18,16 @@ namespace Wallpaper.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly PasswordHelper _passwordHelper;
-        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController(ApplicationDbContext context, PasswordHelper passwordHelper, SignInManager<IdentityUser> signInManager)
+        public AccountController(ApplicationDbContext context, PasswordHelper passwordHelper)
         {
             _context = context;
-            _signInManager = signInManager;
             _passwordHelper = passwordHelper;
         }
 
         [HttpGet]
         public IActionResult Login()
         {
-            ClaimsPrincipal claimUser = HttpContext.User;
-
-            if (claimUser.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             return View();
         }
 
@@ -45,50 +37,52 @@ namespace Wallpaper.Controllers
         {
             if (await Authenticate(userLogin_DTO))
             {
-                try { 
-                    List<Claim> claims = new List<Claim>() 
+                try
+                {
+                    var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userLogin_DTO.Email);
+                    if (user == null)
                     {
-                        new Claim(ClaimTypes.NameIdentifier, userLogin_DTO.Email),
+                        ViewData["ValidateMessage"] = "User not found";
+                        return View();
+                    }
+
+                    var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.Role, user.Role) 
                     };
 
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    AuthenticationProperties properties = new AuthenticationProperties()
+                    var authProperties = new AuthenticationProperties()
                     {
                         AllowRefresh = true,
                         IsPersistent = userLogin_DTO.KeepLoggedIn
                     };
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), properties);
-                        Console.WriteLine("Vào tới đây chưa - Authentication successful");
-                        return RedirectToAction("Index", "Home");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Exception: {ex.Message}");
-                        throw; // Rethrow the exception for debugging purposes
-                    }
-
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                    Console.WriteLine("Authentication successful");
+                    return RedirectToAction("Index", "User");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Exception: {ex.Message}");
+                    throw; // Rethrow the exception for debugging purposes
+                }
             }
 
-            ViewData["ValidateMessage"] = "user not found";
+            ViewData["ValidateMessage"] = "Authentication failed";
             return View();
         }
 
-        [HttpPost]
         private async Task<bool> Authenticate(UserLogin_DTO userLogin_DTO)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userLogin_DTO.Email);
 
-            if (user != null)
+            if (user != null && _passwordHelper.VerifyPassword(userLogin_DTO.Password, user.Password))
             {
-                // Verify password
-                if (_passwordHelper.VerifyPassword(userLogin_DTO.Password, user.Password))
-                {
-                    // Log successful authentication
-                    Console.WriteLine("Authentication succeeded");
-                    return true;
-                }
+                Console.WriteLine("Authentication succeeded");
+                return true;
             }
 
             // Log unsuccessful authentication
@@ -96,5 +90,11 @@ namespace Wallpaper.Controllers
             return false;
         }
 
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

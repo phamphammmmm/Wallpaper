@@ -14,7 +14,7 @@ using Wallpaper.Models;
 
 namespace Wallpaper.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "User,Admin")]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,7 +28,8 @@ namespace Wallpaper.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+           var user = await _context.Users.ToListAsync();
+            return View(user);
         }
 
         // GET: UserEntities/Details/5

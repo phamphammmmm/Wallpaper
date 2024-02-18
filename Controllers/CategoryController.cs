@@ -10,7 +10,7 @@ using Wallpaper.DTO.Category;
 using Wallpaper.DTO.Wallpepar;
 using Wallpaper.Entities;
 using Wallpaper.Models;
-using Wallpaper.Repository.Category.Interface;
+using Wallpaper.Repository.Category;
 using Wallpaper.Service;
 using Wallpaper.Service.Category;
 using Wallpaper.Service.Thumbnail;
@@ -32,7 +32,7 @@ namespace Wallpaper.Controllers
                                   ICategoryRepository categoryRepository,
                                   IThumbnailService thumbnailService,
                                   IImageService imageService,
-                                  ICategoryService categoryService 
+                                  ICategoryService categoryService
                                   )
         {
             _context = context;
@@ -53,7 +53,7 @@ namespace Wallpaper.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            var category = await _categoryRepository.GetCategoryById(id);   
+            var category = await _categoryRepository.GetCategoryById(id);
             return View(category);
         }
 

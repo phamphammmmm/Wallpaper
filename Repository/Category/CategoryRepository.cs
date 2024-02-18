@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Wallpaper.Context;
 using Wallpaper.DTO.Category;
-using Wallpaper.Repository.Category.Interface;
 
 namespace Wallpaper.Repository.Category
 {
@@ -15,11 +14,11 @@ namespace Wallpaper.Repository.Category
             _context = context;
         }
 
-        public async Task<List<Entities.Category>> GetFilteredAndSortedCategoriesAsync(string keyword, 
-                                                                                       int? sort, 
-                                                                                       string colName, 
-                                                                                       bool? isAsc, 
-                                                                                       int index, 
+        public async Task<List<Entities.Category>> GetFilteredAndSortedCategoriesAsync(string keyword,
+                                                                                       int? sort,
+                                                                                       string colName,
+                                                                                       bool? isAsc,
+                                                                                       int index,
                                                                                        int size)
         {
             var query = _context.Categories.AsQueryable();
@@ -64,13 +63,13 @@ namespace Wallpaper.Repository.Category
 
         public async Task<Entities.Category?> GetCategoryById(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return null;
             }
 
-            var category =  await _context.Categories.FirstOrDefaultAsync(r => r.Id == id);
-            if(category == null)
+            var category = await _context.Categories.FirstOrDefaultAsync(r => r.Id == id);
+            if (category == null)
             {
                 return null;
             }
@@ -78,7 +77,7 @@ namespace Wallpaper.Repository.Category
             return category;
         }
 
-        public async Task<bool>Create(Entities.Category category)
+        public async Task<bool> Create(Entities.Category category)
         {
             try
             {
@@ -86,13 +85,13 @@ namespace Wallpaper.Repository.Category
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch (DbUpdateConcurrencyException )
+            catch (DbUpdateConcurrencyException)
             {
                 return false;
             }
         }
 
-        public async Task<bool>Delete(int? id)
+        public async Task<bool> Delete(int? id)
         {
             var category = await _context.Categories.FindAsync(id);
 
@@ -103,7 +102,7 @@ namespace Wallpaper.Repository.Category
             return true;
         }
 
-        public async Task<bool>Edit(Entities.Category category)
+        public async Task<bool> Edit(Entities.Category category)
         {
             try
             {

@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Wallpaper
 build_property.RootNamespace = Wallpaper
@@ -78,24 +86,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code/C\#/Wallpaper/Wallpaper/Views/UserEntities/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckVudGl0aWVzXENyZWF0ZS5jc2h0bWw=
+[D:/Code/C\#/Wallpaper/Wallpaper/Views/User/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code/C\#/Wallpaper/Wallpaper/Views/UserEntities/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckVudGl0aWVzXERlbGV0ZS5jc2h0bWw=
+[D:/Code/C\#/Wallpaper/Wallpaper/Views/User/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code/C\#/Wallpaper/Wallpaper/Views/UserEntities/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckVudGl0aWVzXERldGFpbHMuY3NodG1s
+[D:/Code/C\#/Wallpaper/Wallpaper/Views/User/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code/C\#/Wallpaper/Wallpaper/Views/UserEntities/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckVudGl0aWVzXEVkaXQuY3NodG1s
+[D:/Code/C\#/Wallpaper/Wallpaper/Views/User/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Code/C\#/Wallpaper/Wallpaper/Views/UserEntities/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckVudGl0aWVzXEluZGV4LmNzaHRtbA==
+[D:/Code/C\#/Wallpaper/Wallpaper/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Code/C\#/Wallpaper/Wallpaper/Views/Wallpaper/Create.cshtml]

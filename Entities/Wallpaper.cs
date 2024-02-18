@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wallpaper.Entities
 {
-    public class Wallpaper : Activity
+    public class Wallpaper : Base
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]

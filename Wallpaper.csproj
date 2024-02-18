@@ -47,7 +47,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Repository\User\" />
     <Folder Include="wwwroot\thumbnails\" />
   </ItemGroup>
 	<ItemGroup>

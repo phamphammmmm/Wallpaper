@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wallpaper.Entities
 {
-    public class UserEntity : Activity
+    public class UserEntity : Base
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required]

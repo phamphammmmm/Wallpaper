@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wallpaper.Entities
 {
-    public class Category : Activity
+    public class Category : Base
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; } = string.Empty;

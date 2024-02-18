@@ -1,5 +1,5 @@
 ﻿using Wallpaper.DTO.Category;
-using Wallpaper.Repository.Category.Interface;
+using Wallpaper.Repository.Category;
 
 namespace Wallpaper.Service.Category
 {
